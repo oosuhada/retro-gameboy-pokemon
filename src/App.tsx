@@ -13,8 +13,9 @@ const StyledApp = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 `;
 
 const App = () => {
