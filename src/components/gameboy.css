@@ -40,6 +40,9 @@
 .gameboy .control-section {
   width: 100%;
   min-height: 250px;
+  position: relative;
+  z-index: 300;
+  touch-action: none;
 }
 
 .gameboy .screen-area {
@@ -199,6 +202,7 @@
   width: 90px;
   height: 90px;
   z-index: 5;
+  touch-action: none;
 }
 .gameboy .controls .dpad > * {
   width: 33%;
@@ -318,6 +322,73 @@
   display: inline-block;
   width: 120px;
   height: 90px;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .gameboy {
+    overflow: visible;
+  }
+
+  .gameboy .control-section {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 18px;
+    min-height: 145px;
+    z-index: 500;
+    pointer-events: none;
+  }
+
+  .gameboy .controls,
+  .gameboy .start-select {
+    pointer-events: none;
+  }
+
+  .gameboy .controls .dpad,
+  .gameboy .controls .a-b,
+  .gameboy .start-select .start {
+    pointer-events: auto;
+  }
+
+  .gameboy .controls .dpad {
+    width: 108px;
+    height: 108px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45));
+  }
+
+  .gameboy .controls .a-b {
+    width: 126px;
+    height: 108px;
+  }
+
+  .gameboy .controls .a-b .a,
+  .gameboy .controls .a-b .b {
+    width: 54px;
+    height: 54px;
+    line-height: 50px;
+    font-size: 24px;
+    z-index: 520;
+  }
+
+  .gameboy .start-select {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: auto;
+    height: 42px;
+  }
+
+  .gameboy .start-select .select {
+    display: none;
+  }
+
+  .gameboy .start-select .start {
+    margin-top: 0;
+    min-width: 72px;
+    font-size: 13px;
+    z-index: 520;
+  }
 }
 .gameboy .controls .a-b .a,
 .gameboy .controls .a-b .b {

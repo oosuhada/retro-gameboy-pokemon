@@ -6,6 +6,20 @@ interface Props {
 }
 
 const Gameboy = ({ children }: Props) => {
+  const startDirection = (event: Event, startEvent: Event) =>
+    (pointerEvent: React.PointerEvent<HTMLDivElement>) => {
+      pointerEvent.preventDefault();
+      pointerEvent.currentTarget.setPointerCapture(pointerEvent.pointerId);
+      emitter.emit(event);
+      emitter.emit(startEvent);
+    };
+
+  const stopDirection = (event: Event) =>
+    (pointerEvent: React.PointerEvent<HTMLDivElement>) => {
+      pointerEvent.preventDefault();
+      emitter.emit(event);
+    };
+
   return (
     <div className="gameboy" id="GameBoy">
       <div className="display-section">
@@ -41,43 +55,43 @@ const Gameboy = ({ children }: Props) => {
           <div className="dpad">
             <div
               className="up"
-              onClick={() => emitter.emit(Event.Up)}
-              onTouchStart={() => emitter.emit(Event.StartUp)}
-              onTouchEnd={() => emitter.emit(Event.StopUp)}
+              onPointerDown={startDirection(Event.Up, Event.StartUp)}
+              onPointerUp={stopDirection(Event.StopUp)}
+              onPointerCancel={stopDirection(Event.StopUp)}
             >
               <i className="fa fa-caret-up"></i>
             </div>
             <div
               className="right"
-              onClick={() => emitter.emit(Event.Right)}
-              onTouchStart={() => emitter.emit(Event.StartRight)}
-              onTouchEnd={() => emitter.emit(Event.StopRight)}
+              onPointerDown={startDirection(Event.Right, Event.StartRight)}
+              onPointerUp={stopDirection(Event.StopRight)}
+              onPointerCancel={stopDirection(Event.StopRight)}
             >
               <i className="fa fa-caret-right"></i>
             </div>
             <div
               className="down"
-              onClick={() => emitter.emit(Event.Down)}
-              onTouchStart={() => emitter.emit(Event.StartDown)}
-              onTouchEnd={() => emitter.emit(Event.StopDown)}
+              onPointerDown={startDirection(Event.Down, Event.StartDown)}
+              onPointerUp={stopDirection(Event.StopDown)}
+              onPointerCancel={stopDirection(Event.StopDown)}
             >
               <i className="fa fa-caret-down"></i>
             </div>
             <div
               className="left"
-              onClick={() => emitter.emit(Event.Left)}
-              onTouchStart={() => emitter.emit(Event.StartLeft)}
-              onTouchEnd={() => emitter.emit(Event.StopLeft)}
+              onPointerDown={startDirection(Event.Left, Event.StartLeft)}
+              onPointerUp={stopDirection(Event.StopLeft)}
+              onPointerCancel={stopDirection(Event.StopLeft)}
             >
               <i className="fa fa-caret-left"></i>
             </div>
             <div className="middle"></div>
           </div>
           <div className="a-b">
-            <div className="b" onClick={() => emitter.emit(Event.B)}>
+            <div className="b" onPointerDown={() => emitter.emit(Event.B)}>
               B
             </div>
-            <div className="a" onClick={() => emitter.emit(Event.A)}>
+            <div className="a" onPointerDown={() => emitter.emit(Event.A)}>
               A
             </div>
           </div>
@@ -85,7 +99,7 @@ const Gameboy = ({ children }: Props) => {
 
         <div className="start-select">
           <div className="select">SELECT</div>
-          <div className="start" onClick={() => emitter.emit(Event.Start)}>
+          <div className="start" onPointerDown={() => emitter.emit(Event.Start)}>
             START
           </div>
         </div>
