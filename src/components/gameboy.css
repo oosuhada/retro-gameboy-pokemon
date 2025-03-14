@@ -522,3 +522,20 @@ body {
 .gameboy {
   margin: 0 auto;
 }
+
+@media (max-width: 767px), (pointer: coarse) {
+  .gameboy .controls .a-b .a,
+  .gameboy .controls .a-b .b {
+    width: 54px;
+    height: 54px;
+    line-height: 50px;
+    font-size: 24px;
+    z-index: 520;
+  }
+
+  .gameboy .start-select .start {
+    min-width: 72px;
+    min-height: 44px;
+    z-index: 520;
+  }
+}
